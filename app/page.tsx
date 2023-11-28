@@ -45,7 +45,7 @@ export default function Page() {
       try {
         const uploadResponse = await fetch(url, {
           method: "POST",
-          body: { ...fields, file: file },
+          body: formData,
         });
 
         if (uploadResponse.ok) {
