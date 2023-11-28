@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     });
 
     return Response.json({ url, fields });
-  } catch (error) {
-    return Response.json({ error: error.message });
+  } catch (error: any) {
+    return Response.json({ error: error?.message });
   }
 }
