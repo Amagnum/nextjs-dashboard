@@ -30,10 +30,10 @@ export default function Page() {
       } else {
         console.error(
           "Error triggering CloudFront invalidation:",
-          response.statusText,
+          response.statusText
         );
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error triggering CloudFront invalidation:", error.message);
     }
   };
@@ -56,7 +56,7 @@ export default function Page() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ filename: file.name, contentType: file.type }),
-      },
+      }
     );
 
     console.log(response);
