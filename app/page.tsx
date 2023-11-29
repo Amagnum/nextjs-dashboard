@@ -6,6 +6,38 @@ export default function Page() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
+  // Example function to trigger CloudFront Invalidation via API route
+  const triggerCloudFrontInvalidation = async () => {
+    const apiUrl = "/api/invalidate"; // Adjust the URL based on your project structure
+
+    const requestBody = {
+      distributionId: "E1U1H261RNNE6A",
+      pathsToInvalidate: ["/banner/*", "/banner/images/*"], // Specify the paths you want to invalidate
+    };
+
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("CloudFront invalidation initiated successfully:", result);
+      } else {
+        console.error(
+          "Error triggering CloudFront invalidation:",
+          response.statusText,
+        );
+      }
+    } catch (error) {
+      console.error("Error triggering CloudFront invalidation:", error.message);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -67,7 +99,7 @@ export default function Page() {
   return (
     <main>
       <h1>Upload a File to S3</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={triggerCloudFrontInvalidation}>
         <input
           id="file"
           type="file"
