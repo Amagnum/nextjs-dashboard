@@ -56,7 +56,7 @@ export default function Page() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ filename: file.name, contentType: file.type }),
-      },
+      }
     );
 
     console.log(response);

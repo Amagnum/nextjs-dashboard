@@ -1,6 +1,6 @@
 // pages/api/invalidate.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import { createInvalidation } from "../../utils/cloudfront";
+import { createInvalidation } from "../utils/cloudfront";
 
 export default async function handler(
   req: NextApiRequest,
